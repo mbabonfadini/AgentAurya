@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-xoy6p^(n^isd!*ff6n0+4&2456is_m*@&d8@g(#e%mic6+^r-f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['agent-aurya-1cqw.vercel.app']
 
 
 # Application definition
