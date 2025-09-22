@@ -21,3 +21,6 @@ class UserTenantModel(models.Model):
         verbose_name = 'User Tenant'
         verbose_name_plural = 'User Tenants'
     
+
+    def __str__(self):
+        return f"{self.user.username} - {self.tenant.name} ({self.role.name if self.role else 'No Role'})"

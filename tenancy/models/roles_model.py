@@ -13,3 +13,6 @@ class RolesModel(models.Model):
         db_table = 'tb_roles'
         verbose_name = 'Role'
         verbose_name_plural = 'Roles'
+
+    def __str__(self):
+        return self.name

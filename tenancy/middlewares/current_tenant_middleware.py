@@ -1,6 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
 from tenancy.models import TenantModel
-
+from django.conf import settings
 
 class CurrentTenantMiddleware(MiddlewareMixin):
     def process_request(self, request):
@@ -19,4 +19,7 @@ class CurrentTenantMiddleware(MiddlewareMixin):
             # opcional: sobrescreve o path para que as views não precisem lidar com o slug
             request.path_info = "/" + "/".join(path_parts[1:])
         except TenantModel.DoesNotExist:
-            request.tenant = None
+            if settings.DEBUG:
+                request.tenant = TenantModel.objects.first()
+            else:
+                request.tenant = None

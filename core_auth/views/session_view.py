@@ -28,7 +28,7 @@ class SessionLoginView(APIView):
             return Response({'detail': 'Tenant not found in request.'}, status=status.HTTP_400_BAD_REQUEST)
         
 
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=email, password=password)
         
         if not user:
             return Response({'detail': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -41,4 +41,4 @@ class SessionLoginView(APIView):
             return Response({'detail': 'User is not associated with the current tenant.'}, status=status.HTTP_403_FORBIDDEN)
         
         login(request, user)  # sessão
-        return Response({"detail": "ok"})
+        return Response({"detail": "ok"}, status=status.HTTP_200_OK)

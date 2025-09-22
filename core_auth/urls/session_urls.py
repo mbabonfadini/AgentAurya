@@ -3,5 +3,5 @@ from core_auth.views.session_view import SessionLoginView
 
 
 urlpatterns = [
-    path("auth/login/", SessionLoginView.as_view()),
+    path("login/", SessionLoginView.as_view()),
 ]

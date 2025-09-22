@@ -14,3 +14,5 @@ class TenantModel(models.Model):
         verbose_name_plural = 'Tenants'
     
 
+    def __str__(self):
+        return self.name
