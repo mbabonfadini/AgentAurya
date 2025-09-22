@@ -3,8 +3,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from tenancy.models import UserTenantModel
+from drf_spectacular.utils import extend_schema
+from core_auth.serializers import SessionSerializer
 
 
+@extend_schema(tags=['Auth'])
 class SessionLoginView(APIView):
     """
     POST {"e-mail": "...", "password":"..."}
@@ -13,6 +16,7 @@ class SessionLoginView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    serializer_class = SessionSerializer
 
 
     def post(self, request):

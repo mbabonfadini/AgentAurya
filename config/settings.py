@@ -30,14 +30,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
+
+    'drf_spectacular',
+
     'core_auth',
     'tenancy',
+    'utils',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # to serve static files in production
+    # to serve static files in production
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -46,6 +52,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 
 ROOT_URLCONF = 'config.urls'
@@ -125,3 +135,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "AuryaBox API",
+    "VERSION": "1.0.0",
+    "DESCRIPTION": "Documentação da API multi-tenant com autenticação, roles e tenants",
+    "SERVE_INCLUDE_SCHEMA": [
+        {'url': 'http://127.0.0.1:8000/', 'description': 'Desenvolvimento'},
+    ],
+}

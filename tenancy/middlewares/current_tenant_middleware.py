@@ -4,17 +4,19 @@ from tenancy.models import TenantModel
 
 class CurrentTenantMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        host = request.get_host().split(":")[0]  # remove porta
-        parts = host.split(".")
+        # pega o path e quebra em partes
+        path_parts = [p for p in request.path.split("/") if p]
 
-        # Exige pelo menos: [slug].auryabox.com
-        if len(parts) < 3:
+        if not path_parts:
             request.tenant = None
             return
 
-        slug = parts[0]  # pega o subdomínio (cliente1, cliente2, etc.)
+        slug = path_parts[0]  # primeira parte da URL após o domínio
+
         try:
             tenant = TenantModel.objects.get(slug=slug, is_active=True)
             request.tenant = tenant
+            # opcional: sobrescreve o path para que as views não precisem lidar com o slug
+            request.path_info = "/" + "/".join(path_parts[1:])
         except TenantModel.DoesNotExist:
             request.tenant = None
